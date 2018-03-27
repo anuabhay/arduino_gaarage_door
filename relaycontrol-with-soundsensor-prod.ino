@@ -6,10 +6,10 @@
 
 
 #define LED 2            // Led in NodeMCU at pin GPIO16 (D0).
-const char* ssid = "TPG 794E";
-const char* password = "abcd19736";
-//const char* ssid = "HUAWEI P10";
-//const char* password = "3597e24c98f0";
+//const char* ssid = "TPG 794E";
+//const char* password = "abcd19736";
+const char* ssid = "HUAWEI P10";
+const char* password = "3597e24c98f0";
 
 //const char* mqtt_server = "test.mosquitto.org";
 const int mqtt_port =  13727;
@@ -47,14 +47,17 @@ void callback(char* topic, byte* payload, unsigned int length)
   int p =(char)payload[0]-'0';
   if(p==0) 
   {
+    Serial.println("Close command called");
     digitalWrite(LED, LOW);
   }
   if(p==1) 
   {
+    Serial.println("Open command called");
     digitalWrite(LED, HIGH);
   }
   if(p==2) 
   {
+    Serial.println("Get status command called");
     char * status = get_open_status();
     client.publish("status" , status);
   }
